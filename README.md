@@ -1,5 +1,9 @@
 # PNG file format exploration
 
+## About
+
+As of now this program justs verifies if its input file argument is a valid PNG image.
+
 ## Quick Start
 
 ```console

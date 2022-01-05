@@ -37,9 +37,10 @@ int main(int argc, char **argv) {
 
     uint32_t chunk_size;
     read_bytes_or_panic(input_file, &chunk_size, sizeof(chunk_size));
+    reverse_bytes(&chunk_size, sizeof(chunk_size));
+
     printf("Chunk size: %u\n", chunk_size);
 
-    printf("Read a valid PNG image: %s\n", input_filepath);
     fclose(input_file);
     return 0;
 }

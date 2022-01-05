@@ -35,3 +35,12 @@ bool verify_signatures(const uint8_t *file_signature) {
     }
     return true;
 }
+
+void reverse_bytes(void *buffer_arg, size_t buffer_size) {
+    uint8_t *buffer = buffer_arg;
+    for (size_t i = 0; i < buffer_size / 2; i++) {
+        uint8_t temp = buffer[i];
+        buffer[i] = buffer[buffer_size - i - 1];
+        buffer[buffer_size - i - 1] = temp;
+    }
+}

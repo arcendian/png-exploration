@@ -12,5 +12,6 @@
 void read_bytes_or_panic(FILE *file, void *buffer, size_t buffer_size);
 void print_bytes(uint8_t *buffer, size_t buffer_size);
 bool verify_signatures(const uint8_t *file_signature);
+void reverse_bytes(void *buffer, size_t buffer_size);
 
 #endif // PNG_UTILS_H

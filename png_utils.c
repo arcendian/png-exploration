@@ -6,7 +6,7 @@
 
 #include "png_utils.h"
 
-void read_buffer_or_panic(FILE *file, uint8_t *buffer, size_t buffer_size) {
+void read_bytes_or_panic(FILE *file, void *buffer, size_t buffer_size) {
     size_t n = fread(buffer, buffer_size, 1, file);
     if (n != 1) {
         if (ferror(file)) {

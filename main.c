@@ -5,30 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PNG_SIGNATURE_SIZE 8
-
-const uint8_t png_signature[PNG_SIGNATURE_SIZE] = {137, 80, 78, 71,
-                                                   13,  10, 26, 10};
-
-void read_buffer_or_panic(FILE *file, uint8_t *buffer, size_t buffer_size) {
-    size_t n = fread(buffer, buffer_size, 1, file);
-    if (n != 1) {
-        if (ferror(file)) {
-            fprintf(stderr, "ERROR: could not read PNG header: %s\n",
-                    strerror(errno));
-            exit(1);
-        } else {
-            assert(0 && "unreachable");
-        }
-    }
-}
-
-void print_bytes(uint8_t *buffer, size_t buffer_size) {
-    for (size_t i = 0; i < buffer_size; i++) {
-        printf("%u ", buffer[i]);
-    }
-    putchar('\n');
-}
+#include "png_utils.h"
 
 int main(int argc, char **argv) {
     (void)argc;
@@ -52,8 +29,8 @@ int main(int argc, char **argv) {
     uint8_t signature[8];
     read_buffer_or_panic(input_file, signature, PNG_SIGNATURE_SIZE);
     print_bytes(signature, PNG_SIGNATURE_SIZE);
-    if (memcmp(signature, png_signature, PNG_SIGNATURE_SIZE) != 0) {
-        fprintf(stderr, "ERROR: %s does not appear to be a valid PNG image",
+    if (verify_signatures(signature) == false) {
+        fprintf(stderr, "ERROR: %s does not appear to be a valid PNG image\n",
                 input_filepath);
         exit(1);
     }
